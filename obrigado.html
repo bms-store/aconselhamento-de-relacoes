@@ -1,15 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Obrigado!</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       height: 100vh;
@@ -49,6 +45,7 @@
       text-align: center;
       z-index: 1;
       animation: zoomIn 3s ease forwards;
+      padding: 2rem;
     }
 
     @keyframes zoomIn {
@@ -63,21 +60,19 @@
       letter-spacing: 5px;
       animation: glow 2s ease-in-out infinite alternate;
     }
-
     @keyframes glow {
       from { text-shadow: 0 0 5px #fff, 0 0 10px #00f2fe, 0 0 20px #00f2fe; }
-      to { text-shadow: 0 0 20px #fff, 0 0 30px #4facfe, 0 0 40px #4facfe; }
+      to   { text-shadow: 0 0 20px #fff, 0 0 30px #4facfe, 0 0 40px #4facfe; }
     }
 
     p {
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       opacity: 0;
       animation: fadeInText 4s ease forwards 3s;
     }
-
     @keyframes fadeInText {
       from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
     /* Botão */
@@ -88,43 +83,65 @@
       border: none;
       border-radius: 50px;
       color: white;
-      font-size: 1.2rem;
+      font-size: 1.05rem;
       font-weight: bold;
       cursor: pointer;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       opacity: 0;
       animation: fadeInText 3s ease forwards 5s;
     }
+    .btn:hover { transform: scale(1.06); box-shadow: 0 0 20px #00f2fe; }
 
-    .btn:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 20px #00f2fe;
+    /* botão secundário (voltar ao site) */
+    .btn--ghost {
+      margin-left: 1rem;
+      background: transparent;
+      border: 2px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.95);
+    }
+
+    @media (max-width: 520px) {
+      h1 { font-size: 2rem; letter-spacing: 3px; }
+      p  { font-size: 1rem; }
     }
   </style>
 </head>
 <body>
   <!-- Fundo de estrelas -->
-  <div class="stars" id="stars"></div>
+  <div class="stars" id="stars" aria-hidden="true"></div>
 
-  <div class="cinema">
-    <h1>Obrigado!</h1>
-    <p>Sua Compra foi realizada com sucesso.<br> Nos vemos na nossa consulta! 🌌</p>
-    <button class="btn" onclick="voltar()">Voltar ao site</button>
+  <div class="cinema" role="main" aria-labelledby="agradecimentoTitulo">
+    <h1 id="agradecimentoTitulo">Obrigado!</h1>
+    <p>Sua compra foi realizada com sucesso.<br>Nos vemos na nossa consulta! 🌌</p>
+
+    <!-- botão que chama a função JS -->
+    <button class="btn" onclick="agendar()">Agendar no Google Agenda</button>
+    <button class="btn btn--ghost" onclick="voltarAoSite()">Voltar ao site</button>
   </div>
 
   <script>
-    // Função para redirecionar
-    function voltar() {
-      window.location.href = "index.html";
+    // Link para sua agenda de agendamento (abre em nova aba)
+    function agendar() {
+      const url = 'https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ3JWD4Q2zxIJ9rM5kt_1TsWho5jkZt-eTerhu8KK1vK-chxJmLRQuqv9h7BLL9WMCU_zANf7_iWLATE';
+      const win = window.open(url, '_blank');
+      // aumenta segurança: remove referencia ao opener quando possível
+      if (win) { try { win.opener = null; } catch(e) { /* ignorar se bloqueado */ } }
+    }
+
+    // Função para voltar ao index (mesma aba)
+    function voltarAoSite() {
+      window.location.href = 'index.html';
     }
 
     // Criar estrelas dinâmicas
-    const starsContainer = document.getElementById("stars");
-    for (let i = 0; i < 100; i++) {
-      const star = document.createElement("span");
-      star.style.top = Math.random() * 100 + "%";
-      star.style.left = Math.random() * 100 + "%";
-      star.style.animationDuration = (Math.random() * 5 + 2) + "s";
+    const starsContainer = document.getElementById('stars');
+    for (let i = 0; i < 120; i++) {
+      const star = document.createElement('span');
+      star.style.top = Math.random() * 100 + '%';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.opacity = Math.random() * 0.8 + 0.2;
+      star.style.width = star.style.height = (Math.random() * 2 + 1) + 'px';
+      star.style.animationDuration = (Math.random() * 6 + 3) + 's';
       starsContainer.appendChild(star);
     }
   </script>
