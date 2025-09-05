@@ -3,81 +3,153 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aconcelhamento de Relacionamento</title>
+  <title>Aconselhamento de Relacionamento</title>
   <style>
+    /* Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f9fafb;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom, #f9fafb, #e5e7eb);
       color: #1f2937;
+      overflow-x: hidden;
     }
+
     header {
       position: sticky;
       top: 0;
-      background: white;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
       border-bottom: 1px solid #e5e7eb;
       padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      z-index: 10;
+      animation: fadeDown 1s ease;
     }
+
+    @keyframes fadeDown {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
     header nav a {
       margin-left: 1rem;
       text-decoration: none;
       color: #374151;
+      font-weight: 500;
+      transition: color 0.3s;
     }
-    header nav a:hover {
-      text-decoration: underline;
-    }
+    header nav a:hover { color: #2563eb; }
+
     section {
-      max-width: 1000px;
+      max-width: 1100px;
       margin: auto;
-      padding: 4rem 1rem;
+      padding: 5rem 1rem;
+      animation: fadeUp 1.5s ease;
     }
+
+    @keyframes fadeUp {
+      from { transform: translateY(40px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
     h1, h2 {
       margin-bottom: 1rem;
+      text-align: center;
     }
+
     .hero {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-    .hero p {
-      font-size: 1.1rem;
-      color: #4b5563;
-    }
-    .btn {
-      background: #111827;
+      text-align: center;
+      padding: 5rem 1rem;
+      background: linear-gradient(to right, #4facfe, #00f2fe);
       color: white;
-      padding: 0.75rem 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+      animation: zoomIn 1.5s ease;
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      background: linear-gradient(90deg, #111827, #1f2937);
+      color: white;
+      padding: 0.9rem 2rem;
       border: none;
-      border-radius: 8px;
+      border-radius: 50px;
       cursor: pointer;
       font-size: 1rem;
+      font-weight: bold;
+      transition: transform 0.3s, box-shadow 0.3s;
     }
+
     .btn:hover {
-      background: #1f2937;
+      transform: scale(1.1);
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
     }
+
     .cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
     }
+
     .card {
       background: white;
-      border: 1px solid #e5e7eb;
-      border-radius: 12px;
-      padding: 1.5rem;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
     }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    }
+
+    .card h3 {
+      margin-bottom: 1rem;
+      color: #111827;
+    }
+
+    .card p, .card ul {
+      color: #4b5563;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .price {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #2563eb;
+      margin: 1rem 0;
+    }
+
     footer {
-      background: white;
-      border-top: 1px solid #e5e7eb;
+      background: #111827;
+      color: white;
       padding: 2rem;
       text-align: center;
       font-size: 0.9rem;
-      color: #6b7280;
     }
+
     form input, form textarea {
       width: 100%;
       padding: 0.75rem;
@@ -86,14 +158,13 @@
       border-radius: 8px;
       font-size: 1rem;
     }
-    form button {
-      width: 100%;
-    }
+
+    form button { width: 100%; }
   </style>
 </head>
 <body>
   <header>
-    <div><strong>Aconcelhamento de Relacionamento</strong></div>
+    <div><strong>Aconselhamento</strong></div>
     <nav>
       <a href="#como-funciona">Como funciona</a>
       <a href="#planos">Planos</a>
@@ -103,63 +174,82 @@
   </header>
 
   <section class="hero">
-    <div>
-      <h1>Confiança não se testa com armadilha — se constrói com clareza.</h1>
-      <p>A Bíblia nos ensina que o amor é a maior de todas as coisas. Se o seu relacionamento está precisando de um novo fôlego, estamos aqui para ajudar.
-        Nosso objetivo é guiar vocês a <strong>reativar a chama do amor</strong> com base nos ensinamentos de Jesus. </p>
-     <button 
-  type="button" 
-  class="btn" 
-  onclick="window.open('https://calendar.google.com/calendar/render?action=TEMPhttps://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ3JWD4Q2zxIJ9rM5kt_1TsWho5jkZt-eTerhu8KK1vK-chxJmLRQuqv9h7BLL9WMCU_zANf7_iWLATE&text=Conversa+de+Aconselhamento&details=Conversa+gratuita+para+orientação+do+relacionamento.&location=Online&dates=20250910T180000Z/20250910T183000Z', '_blank')">
-  Agendar conversa gratuita
-</button>
+    <h1>Confiança não se testa — se constrói com clareza 💙</h1>
+    <p>A Bíblia nos ensina que o amor é a maior de todas as coisas. Se o seu relacionamento precisa de um novo fôlego, estamos aqui para ajudar a <strong>reativar a chama do amor</strong>.</p>
 
-    </div>
   </section>
 
   <section id="como-funciona">
     <h2>Como funciona</h2>
     <div class="cards">
-      <div class="card"><h3>Conexão Genuína</h3><p>Sem disfarces: Ajudamos vocês a redescobrir a pessoa maravilhosa com quem estão, sob a ótica do amor e do respeito.</p></div>
-      <div class="card"><h3>Jornada Compartilhada</h3><p>Criamos um caminho personalizado para o casal, focado em comunicação, perdão e crescimento mútuo, sem atalhos ou armadilhas.</p></div>
-      <div class="card"><h3>Encontros Dedicados</h3><p>Sessões focadas e significativas, em horários flexíveis, com conteúdo aprovado para nutrir e fortalecer a união de vocês.</p></div>
-      <div class="card"><h3>Acompanhamento e Crescimento</h3><p>Feedback e apoio contínuo para que o casal possa aplicar os aprendizados e ver o amor florescer a cada dia.</p></div>
+      <div class="card"><h3>Conexão Genuína</h3><p>Sem disfarces: redescubra a pessoa maravilhosa com quem você está, sob a ótica do amor e do respeito.</p></div>
+      <div class="card"><h3>Jornada Compartilhada</h3><p>Um caminho personalizado para o casal, focado em comunicação, perdão e crescimento mútuo.</p></div>
+      <div class="card"><h3>Encontros Dedicados</h3><p>Sessões significativas, com conteúdo aprovado para nutrir e fortalecer a união de vocês.</p></div>
+      <div class="card"><h3>Acompanhamento</h3><p>Feedback e apoio contínuo para aplicar os aprendizados e ver o amor florescer.</p></div>
     </div>
   </section>
 
   <section id="planos">
     <h2>Planos e preços</h2>
     <div class="cards">
-      <div class="card"><h3>Essencial</h3><p><strong>R$99,00/sessão</strong></p><ul><li>1 sessão guiada (30 min)</li><li>Roteiro personalizado</li><li>Relatório resumo</li></ul></div>
-      <div class="card"><h3>Completo</h3><p><strong>R$199,00/sessão</strong></p><ul><li>2 sessões (até 60 min)</li><li>Roteiro + acompanhamento</li><li>Casback de 10%</li><li>Relatório com recomendações</li></ul></div>
-      <div class="card"><h3>Profissional</h3><p><strong>R$299,00/sessão</strong></p><ul><li>3 sessões + Desconto na próxima sessão</li><li>Consultoria de comunicação</li><li>Casback de 25%</li><li>Plano de próximos passos</li></ul></div>
+      <div class="card">
+        <h3>Essencial</h3>
+        <p class="price">R$99,00</p>
+        <ul>
+          <li>1 sessão/mês (30 min)</li>
+          <li>Roteiro personalizado</li>
+          <li>Relatório resumo</li>
+        </ul>
+        <button class="btn" onclick="window.open('https://pay.kirvano.com/59256c41-079b-4d0d-9869-52cbdfeccca1', '_blank')">Assinar</button>
+      </div>
+      
+      <div class="card">
+        <h3>Completo</h3>
+        <p class="price">R$199,00</p>
+        <ul>
+          <li>2 sessões/mês (60 min)</li>
+          <li>Roteiro + acompanhamento</li>
+          <li>Desconto de 10%</li>
+          <li>Relatório com recomendações</li>
+        </ul>
+        <button class="btn" onclick="window.open('https://pay.kirvano.com/59256c41-079b-4d0d-9869-52cbdfeccca1', '_blank')">Assinar</button>
+      </div>
+
+      <div class="card">
+        <h3>Profissional</h3>
+        <p class="price">R$299,00</p>
+        <ul>
+          <li>3 sessões</li>
+          <li>1 sessão gratuita</li>
+          <li>Desconto de 25%</li>
+          <li>Consultoria de comunicação</li>
+          <li>Plano de próximos passos</li>
+        </ul>
+        <button class="btn" onclick="window.open('https://pay.kirvano.com/59256c41-079b-4d0d-9869-52cbdfeccca1', '_blank')">Assinar</button>
+      </div>
     </div>
   </section>
 
   <section id="faq">
     <h2>Perguntas frequentes</h2>
     <div class="cards">
-      <div class="card"><h3>Criamos situações falsas?</h3><p>Não. Nossa abordagem é baseada na verdade e na transparência. Nosso foco é educacional e de fortalecimento da união, não em criar cenários falsos.</p></div>
-      <div class="card"><h3>O casal precisa concordar?</h3><p>Não necessariamente, mas acreditamos que a união só se fortalece com a participação de ambos.</p></div>
-      <div class="card"><h3>É uma terapia de casal?</h3><p>Não. Não substituímos a terapia. Nosso foco é guiar e apoiar o casal em pontos específicos do relacionamento, oferecendo ferramentas e reflexões para que a união se fortaleça.</p></div>
-      <div class="card"><h3>O processo é anônimo?</h3><p>Sim. Tratamos seus dados com total privacidade e sigilo. O mínimo de informações é solicitado, de acordo com a lei de proteção de dados, para garantir a segurança de todos.</p></div>
+      <div class="card"><h3>Criamos situações falsas?</h3><p>Não. Nossa abordagem é baseada na verdade e na transparência.</p></div>
+      <div class="card"><h3>O casal precisa concordar?</h3><p>Não necessariamente, mas acreditamos que a união só se fortalece com ambos.</p></div>
+      <div class="card"><h3>É uma terapia de casal?</h3><p>Não. Não substituímos a terapia. Nosso foco é oferecer ferramentas e reflexões.</p></div>
+      <div class="card"><h3>O processo é anônimo?</h3><p>Sim. Tratamos seus dados com total privacidade e segurança.</p></div>
     </div>
   </section>
 
   <section id="contato">
     <h2>Fale com a gente</h2>
     <form>
-      <button 
-  type="button" 
-  class="btn" 
-  onclick="window.location.href='http://127.0.0.1:3000/contato.html'">
-  Enviar mensagem
-</button>
-
+    
+      <button type="button" class="btn" onclick="window.location.href='http://127.0.0.1:3000/contato.html'">Enviar mensagem</button>
+    </form>
   </section>
 
   <footer>
-    © 2025 Aconcelhamento de relacionamentos— Todos os direitos reservados.
+    © 2025 Aconselhamento de Relacionamentos — Todos os direitos reservados.
   </footer>
 </body>
 </html>
